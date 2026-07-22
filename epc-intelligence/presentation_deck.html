@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AegisEPC — Presentation Slide Deck</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #070a13;
+            color: #e2e8f0;
+        }
+        .slide {
+            width: 297mm;
+            height: 210mm;
+            max-width: 100%;
+            margin: 20px auto;
+            background: #0f1426;
+            border: 1px solid #1f294d;
+            border-radius: 16px;
+            padding: 40px 60px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            box-sizing: border-box;
+            page-break-after: always;
+        }
+        @media print {
+            body {
+                background-color: #ffffff;
+                color: #000000;
+            }
+            .slide {
+                margin: 0;
+                border: none;
+                box-shadow: none;
+                background: #ffffff;
+                color: #000000;
+                width: 100%;
+                height: 100vh;
+                page-break-after: always;
+                border-radius: 0;
+                padding: 30px 45px;
+            }
+            .no-print {
+                display: none;
+            }
+            .dark-print-fix {
+                color: #000000 !important;
+                border-color: #e2e8f0 !important;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans antialiased">
+
+    <!-- Top Action Bar (Hidden on Print) -->
+    <div class="no-print sticky top-0 bg-slate-900 text-white px-6 py-4 flex items-center justify-between shadow-md z-50">
+        <div class="flex items-center space-x-3">
+            <div class="h-8 w-8 rounded bg-gradient-to-tr from-indigo-500 to-cyan-500 flex items-center justify-center font-bold">A</div>
+            <div>
+                <span class="font-bold tracking-tight">AEGIS<span class="text-cyan-400">EPC</span> Slide Deck</span>
+                <span class="text-[10px] text-slate-400 block -mt-1">Print to PDF (Landscape A4)</span>
+            </div>
+        </div>
+        <button onclick="window.print()" class="bg-cyan-500 hover:bg-cyan-600 text-white text-xs font-bold px-4 py-2 rounded-lg flex items-center space-x-2 transition">
+            <i class="fa-solid fa-print"></i>
+            <span>Print / Save to PDF</span>
+        </button>
+    </div>
+
+    <!-- SLIDE 1 -->
+    <div class="slide">
+        <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+            <span class="text-xs uppercase text-slate-500 tracking-widest font-semibold">ET AI Hackathon 2026</span>
+            <span class="text-xs font-mono text-cyan-400">Slide 1 / 7</span>
+        </div>
+        <div class="flex-grow flex flex-col items-center justify-center text-center">
+            <div class="h-16 w-16 bg-gradient-to-tr from-indigo-500 to-cyan-500 rounded-xl flex items-center justify-center mb-6 text-white text-3xl shadow-lg shadow-cyan-500/20">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <h1 class="text-5xl font-display font-extrabold tracking-tight text-white mb-2">AEGIS<span class="text-cyan-400 font-light">EPC</span></h1>
+            <p class="text-lg text-slate-400">AI-Powered Project Intelligence Layer for EPC Engineering</p>
+            <div class="h-1 w-24 bg-gradient-to-r from-indigo-500 to-cyan-500 my-6 rounded-full"></div>
+            <p class="text-xs text-slate-500">Google Gemini &bull; Clause-Tree Structural Retrieval &bull; Quality Compliance Automation</p>
+        </div>
+        <div class="flex justify-between items-center text-[10px] text-slate-600 pt-4 border-t border-slate-800">
+            <span>AegisEPC Platform</span>
+            <span>https://github.com/Jaswanth258/AI-Data-Centre-EPC-Platform</span>
+        </div>
+    </div>
+
+    <!-- SLIDE 2 -->
+    <div class="slide">
+        <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+            <span class="text-xs uppercase text-slate-500 tracking-widest font-semibold">The Context & Problem</span>
+            <span class="text-xs font-mono text-cyan-400">Slide 2 / 7</span>
+        </div>
+        <div class="flex-grow py-8">
+            <h2 class="text-3xl font-display font-bold text-white mb-6">EPC Procurement Bottlenecks</h2>
+            <div class="grid grid-cols-3 gap-6 mb-6">
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 text-center">
+                    <span class="text-4xl font-extrabold text-red-500 block">67%</span>
+                    <p class="text-xs text-slate-400 mt-2">Overrun rate on large EPC infrastructure projects</p>
+                </div>
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 text-center">
+                    <span class="text-4xl font-extrabold text-amber-500 block">3-5 Days</span>
+                    <p class="text-xs text-slate-400 mt-2">Manual review time per vendor submittal package</p>
+                </div>
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 text-center">
+                    <span class="text-4xl font-extrabold text-red-500 block">$15B+</span>
+                    <p class="text-xs text-slate-400 mt-2">National capital at risk from schedule delays</p>
+                </div>
+            </div>
+            <p class="text-sm text-slate-400 leading-relaxed">
+                Engineers spend days manually cross-referencing submittals against technical specs. A single missed non-conformance (e.g. 8-min battery runtime vs 10-min spec) creates severe delays and rework when caught post-delivery.
+            </p>
+        </div>
+        <div class="flex justify-between items-center text-[10px] text-slate-600 pt-4 border-t border-slate-800">
+            <span>AegisEPC Platform</span>
+            <span>https://github.com/Jaswanth258/AI-Data-Centre-EPC-Platform</span>
+        </div>
+    </div>
+
+    <!-- SLIDE 3 -->
+    <div class="slide">
+        <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+            <span class="text-xs uppercase text-slate-500 tracking-widest font-semibold">The Solution</span>
+            <span class="text-xs font-mono text-cyan-400">Slide 3 / 7</span>
+        </div>
+        <div class="flex-grow py-8">
+            <h2 class="text-3xl font-display font-bold text-white mb-6">AegisEPC Platform Overview</h2>
+            <div class="grid grid-cols-2 gap-8">
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-6">
+                    <h3 class="text-lg font-bold text-cyan-400 mb-3"><i class="fa-solid fa-comments mr-2"></i>RFI & Knowledge Copilot</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                        Natural language interface querying technical guidelines with exact clause-by-clause traceability.
+                    </p>
+                    <ul class="space-y-2 text-xs text-slate-500">
+                        <li>&bull; Interactive citation chips linking to full spec views</li>
+                        <li>&bull; Per-document isolated chat history</li>
+                        <li>&bull; Dynamic domain adaptation based on loaded metadata</li>
+                    </ul>
+                </div>
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-6">
+                    <h3 class="text-lg font-bold text-indigo-400 mb-3"><i class="fa-solid fa-clipboard-check mr-2"></i>Quality Compliance Agent</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed mb-4">
+                        Automatic verification of vendor specs against ground-truth technical parameters.
+                    </p>
+                    <ul class="space-y-2 text-xs text-slate-500">
+                        <li>&bull; Fast, automated param extraction</li>
+                        <li>&bull; Clause comparison with deviation detection</li>
+                        <li>&bull; Status verdicts and severity metrics with CSV exports</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="flex justify-between items-center text-[10px] text-slate-600 pt-4 border-t border-slate-800">
+            <span>AegisEPC Platform</span>
+            <span>https://github.com/Jaswanth258/AI-Data-Centre-EPC-Platform</span>
+        </div>
+    </div>
+
+    <!-- SLIDE 4 -->
+    <div class="slide">
+        <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+            <span class="text-xs uppercase text-slate-500 tracking-widest font-semibold">Technical Innovation</span>
+            <span class="text-xs font-mono text-cyan-400">Slide 4 / 7</span>
+        </div>
+        <div class="flex-grow py-8 flex flex-col justify-center">
+            <h2 class="text-3xl font-display font-bold text-white mb-4">Clause-Tree Retrieval vs Traditional Vector RAG</h2>
+            <div class="grid grid-cols-2 gap-6">
+                <div class="bg-slate-900 border border-red-900/35 rounded-xl p-5">
+                    <h3 class="text-sm font-bold text-red-400 mb-3"><i class="fa-solid fa-xmark mr-2"></i>Traditional Vector RAG</h3>
+                    <ul class="space-y-2.5 text-xs text-slate-400">
+                        <li>&bull; Documents split into arbitrary 500-token chunks</li>
+                        <li>&bull; Chunks cut sentences/lists halfway, destroying context</li>
+                        <li>&bull; Cosine similarity loses semantic relationships</li>
+                        <li>&bull; Hard to verify citations back to exact legal sections</li>
+                    </ul>
+                </div>
+                <div class="bg-slate-900 border border-emerald-900/35 rounded-xl p-5">
+                    <h3 class="text-sm font-bold text-emerald-400 mb-3"><i class="fa-solid fa-check mr-2"></i>AegisEPC Clause-Tree RAG</h3>
+                    <ul class="space-y-2.5 text-xs text-slate-300">
+                        <li>&bull; Parser maps headers to a nested clause tree</li>
+                        <li>&bull; Preserves document hierarchy (Section &rarr; Clause X.Y)</li>
+                        <li>&bull; LLM navigates TOC, then extracts target clause text</li>
+                        <li>&bull; 100% deterministic, zero embeddings, zero vector DB cost</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="flex justify-between items-center text-[10px] text-slate-600 pt-4 border-t border-slate-800">
+            <span>AegisEPC Platform</span>
+            <span>https://github.com/Jaswanth258/AI-Data-Centre-EPC-Platform</span>
+        </div>
+    </div>
+
+    <!-- SLIDE 5 -->
+    <div class="slide">
+        <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+            <span class="text-xs uppercase text-slate-500 tracking-widest font-semibold">Tech Stack & Pipeline</span>
+            <span class="text-xs font-mono text-cyan-400">Slide 5 / 7</span>
+        </div>
+        <div class="flex-grow py-8">
+            <h2 class="text-3xl font-display font-bold text-white mb-6">Architecture & Engineering Pipeline</h2>
+            <div class="grid grid-cols-4 gap-4 mb-6">
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 text-center">
+                    <i class="fa-solid fa-brain text-cyan-400 text-2xl mb-2"></i>
+                    <h4 class="text-xs font-bold text-white">LLM Engine</h4>
+                    <p class="text-[10px] text-slate-500 mt-1">Google Gemini Flash API</p>
+                </div>
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 text-center">
+                    <i class="fa-solid fa-server text-indigo-400 text-2xl mb-2"></i>
+                    <h4 class="text-xs font-bold text-white">Backend</h4>
+                    <p class="text-[10px] text-slate-500 mt-1">Python + FastAPI API</p>
+                </div>
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 text-center">
+                    <i class="fa-solid fa-code text-emerald-400 text-2xl mb-2"></i>
+                    <h4 class="text-xs font-bold text-white">Frontend</h4>
+                    <p class="text-[10px] text-slate-500 mt-1">HTML + Tailwind + JS</p>
+                </div>
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 text-center">
+                    <i class="fa-solid fa-file-pdf text-amber-400 text-2xl mb-2"></i>
+                    <h4 class="text-xs font-bold text-white">Parser</h4>
+                    <p class="text-[10px] text-slate-500 mt-1">pdfplumber + MD Extractor</p>
+                </div>
+            </div>
+            <p class="text-sm text-slate-400 leading-relaxed">
+                The compliance agent pipeline uses a multi-agent workflow: Step 1 extracts params from submittals &rarr; Step 2 navigates the clause tree &rarr; Step 3 parses matching specification clauses &rarr; Step 4 verifies compliance status and outputs structure.
+            </p>
+        </div>
+        <div class="flex justify-between items-center text-[10px] text-slate-600 pt-4 border-t border-slate-800">
+            <span>AegisEPC Platform</span>
+            <span>https://github.com/Jaswanth258/AI-Data-Centre-EPC-Platform</span>
+        </div>
+    </div>
+
+    <!-- SLIDE 6 -->
+    <div class="slide">
+        <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+            <span class="text-xs uppercase text-slate-500 tracking-widest font-semibold">Business Impact</span>
+            <span class="text-xs font-mono text-cyan-400">Slide 6 / 7</span>
+        </div>
+        <div class="flex-grow py-8">
+            <h2 class="text-3xl font-display font-bold text-white mb-6">Unlocking Massive ROI</h2>
+            <div class="grid grid-cols-3 gap-6 mb-6">
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 text-center">
+                    <span class="text-4xl font-extrabold text-cyan-400 block">8 Seconds</span>
+                    <p class="text-xs text-slate-400 mt-2">Compliance audit execution time</p>
+                    <p class="text-[10px] text-slate-500">Down from 3-5 days manual review</p>
+                </div>
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 text-center">
+                    <span class="text-4xl font-extrabold text-emerald-400 block">100%</span>
+                    <p class="text-xs text-slate-400 mt-2">Explainable audit traceability</p>
+                    <p class="text-[10px] text-slate-500">Eliminates AI hallucinations</p>
+                </div>
+                <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 text-center">
+                    <span class="text-4xl font-extrabold text-amber-400 block">$0</span>
+                    <p class="text-xs text-slate-400 mt-2">Infrastructure database costs</p>
+                    <p class="text-[10px] text-slate-500">Operates on Gemini Free Tier</p>
+                </div>
+            </div>
+            <p class="text-sm text-slate-400 leading-relaxed">
+                By accelerating standard engineering review cycles from days to seconds, AegisEPC removes bottleneck delays from procurement pipelines, preventing project schedule overruns and ensuring zero cost impact from post-delivery equipment rejections.
+            </p>
+        </div>
+        <div class="flex justify-between items-center text-[10px] text-slate-600 pt-4 border-t border-slate-800">
+            <span>AegisEPC Platform</span>
+            <span>https://github.com/Jaswanth258/AI-Data-Centre-EPC-Platform</span>
+        </div>
+    </div>
+
+    <!-- SLIDE 7 -->
+    <div class="slide">
+        <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+            <span class="text-xs uppercase text-slate-500 tracking-widest font-semibold">Thank You</span>
+            <span class="text-xs font-mono text-cyan-400">Slide 7 / 7</span>
+        </div>
+        <div class="flex-grow flex flex-col items-center justify-center text-center">
+            <div class="h-16 w-16 bg-gradient-to-tr from-indigo-500 to-cyan-500 rounded-xl flex items-center justify-center mb-6 text-white text-3xl shadow-lg shadow-cyan-500/20">
+                <i class="fa-solid fa-shield-halved"></i>
+            </div>
+            <h2 class="text-4xl font-display font-extrabold tracking-tight text-white mb-2">Thank You</h2>
+            <p class="text-lg text-slate-400">AegisEPC Platform Presentation</p>
+            <div class="h-0.5 w-16 bg-gradient-to-r from-indigo-500 to-cyan-500 my-4 rounded-full"></div>
+            <div class="text-xs text-slate-500 space-y-1">
+                <p>GitHub Repo: <a href="https://github.com/Jaswanth258/AI-Data-Centre-EPC-Platform" class="text-cyan-400 hover:underline">Jaswanth258/AI-Data-Centre-EPC-Platform</a></p>
+                <p>Category: ET AI Hackathon 2026</p>
+            </div>
+        </div>
+        <div class="flex justify-between items-center text-[10px] text-slate-600 pt-4 border-t border-slate-800">
+            <span>AegisEPC Platform</span>
+            <span>https://github.com/Jaswanth258/AI-Data-Centre-EPC-Platform</span>
+        </div>
+    </div>
+
+</body>
+</html>
