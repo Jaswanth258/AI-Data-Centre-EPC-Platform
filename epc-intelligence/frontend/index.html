@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AegisEPC — Data Centre Project Intelligence</title>
+    <!-- Google Fonts: Space Grotesk & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            bg: '#070a13',
+                            card: '#0f1426',
+                            border: '#1f294d',
+                            cyan: '#06b6d4',
+                            emerald: '#10b981',
+                            amber: '#f59e0b',
+                            rose: '#f43f5e',
+                            indigo: '#6366f1'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #070a13;
+            color: #e2e8f0;
+            background-image: 
+                radial-gradient(at 10% 10%, rgba(6, 182, 212, 0.05) 0px, transparent 50%),
+                radial-gradient(at 90% 90%, rgba(99, 102, 241, 0.05) 0px, transparent 50%);
+            background-attachment: fixed;
+        }
+        
+        .glass-panel {
+            background: rgba(15, 20, 38, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(31, 41, 77, 0.5);
+        }
+
+        .glass-panel-glow-cyan {
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.1);
+        }
+
+        .glass-panel-glow-rose {
+            border: 1px solid rgba(244, 63, 94, 0.3);
+            box-shadow: 0 0 15px rgba(244, 63, 94, 0.1);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(7, 10, 19, 0.5);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1f294d;
+            border-radius: 3px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #3b4f8c;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="border-b border-brand-border bg-brand-bg/80 backdrop-blur-md sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="h-10 w-10 rounded-lg bg-gradient-to-tr from-brand-indigo to-brand-cyan flex items-center justify-center shadow-lg shadow-brand-cyan/20">
+                    <i class="fa-solid fa-shield-halved text-white text-xl"></i>
+                </div>
+                <div>
+                    <span class="font-display font-bold text-xl tracking-tight text-white flex items-center">
+                        AEGIS<span class="text-brand-cyan font-light ml-1">EPC</span>
+                    </span>
+                    <span class="text-[10px] text-gray-500 block uppercase tracking-widest font-semibold -mt-1">Project Intelligence Layer</span>
+                </div>
+            </div>
+            
+            <!-- Global KPIs -->
+            <div class="hidden md:flex items-center space-x-8 text-xs">
+                <div class="flex flex-col border-r border-brand-border pr-6">
+                    <span class="text-gray-400 font-medium">CAPACITY TARGET</span>
+                    <span class="text-white font-bold text-sm">2,700 MW <span class="text-gray-500 font-normal">(2027)</span></span>
+                </div>
+                <div class="flex flex-col border-r border-brand-border pr-6">
+                    <span class="text-gray-400 font-medium">CAPITAL DEPLOYED</span>
+                    <span class="text-white font-bold text-sm">$15.0 Billion</span>
+                </div>
+                <div class="flex flex-col border-r border-brand-border pr-6">
+                    <span class="text-gray-400 font-medium">COMPLIANCE RATIO</span>
+                    <span class="text-brand-emerald font-bold text-sm flex items-center">
+                        <i class="fa-solid fa-circle-check mr-1"></i> 99.2%
+                    </span>
+                </div>
+                <div class="flex flex-col">
+                    <span class="text-gray-400 font-medium">CRITICAL PATH RISKS</span>
+                    <span class="text-brand-rose font-bold text-sm flex items-center">
+                        <i class="fa-solid fa-triangle-exclamation mr-1 animate-pulse"></i> 2 Active
+                    </span>
+                </div>
+            </div>
+
+            <!-- Active Status Badge -->
+            <div class="flex items-center space-x-2 bg-brand-cyan/10 border border-brand-cyan/30 rounded-full px-3 py-1 text-xs text-brand-cyan">
+                <span class="h-2 w-2 rounded-full bg-brand-cyan animate-ping"></span>
+                <span class="font-medium tracking-wide">Gemini 2.0 Active</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <div class="bg-[#0b1021] border-b border-brand-border">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <nav class="flex space-x-8" aria-label="Tabs">
+                <button onclick="switchTab('rfi')" id="tab-rfi" class="border-b-2 border-brand-cyan text-brand-cyan px-1 py-4 text-sm font-medium font-display flex items-center space-x-2">
+                    <i class="fa-solid fa-comments"></i>
+                    <span>RFI & Knowledge Copilot</span>
+                </button>
+                <button onclick="switchTab('compliance')" id="tab-compliance" class="border-b-2 border-transparent text-gray-400 hover:text-white hover:border-gray-500 px-1 py-4 text-sm font-medium font-display flex items-center space-x-2">
+                    <i class="fa-solid fa-clipboard-check"></i>
+                    <span>Specification & Quality Compliance</span>
+                </button>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col">
+        
+        <!-- Tab 1: RFI Copilot -->
+        <div id="panel-rfi" class="flex-grow flex flex-col md:flex-row space-y-6 md:space-y-0 md:space-x-6">
+            <!-- Left Panel: Chat -->
+            <div class="flex-grow flex flex-col glass-panel rounded-2xl overflow-hidden min-h-[500px] md:h-[650px] relative">
+                <!-- Chat Header -->
+                <div class="px-6 py-4 border-b border-brand-border bg-[#0e1328] flex items-center justify-between flex-wrap gap-2">
+                    <div class="flex items-center space-x-3">
+                        <div class="h-8 w-8 rounded-full bg-brand-cyan/15 flex items-center justify-center text-brand-cyan">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-sm font-semibold text-white">RFI Assistant</h2>
+                            <p class="text-[10px] text-gray-400">Clause-Tree RAG Engine for Engineering Specifications</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <div class="flex items-center space-x-1.5 bg-brand-bg border border-brand-border rounded-lg px-2.5 py-1 text-xs">
+                            <i class="fa-solid fa-filter text-brand-cyan text-[10px]"></i>
+                            <select id="doc-scope" onchange="onScopeChange()" class="bg-transparent text-gray-300 text-xs focus:outline-none cursor-pointer">
+                                <option value="all" class="bg-brand-card text-white">📂 All Documents</option>
+                            </select>
+                        </div>
+                        <button onclick="clearChat()" class="text-gray-400 hover:text-white text-xs flex items-center space-x-1 px-2.5 py-1.5 rounded border border-brand-border hover:bg-brand-border/40 transition">
+                            <i class="fa-solid fa-trash-can"></i>
+                            <span>Clear</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Messages area -->
+                <div id="chat-messages" class="flex-grow p-6 overflow-y-auto space-y-4 text-sm">
+                    <!-- Welcome message -->
+                    <div class="flex space-x-3 max-w-3xl">
+                        <div class="h-8 w-8 rounded-full bg-brand-cyan/15 flex items-center justify-center text-brand-cyan shrink-0">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                        <div class="bg-brand-card border border-brand-border rounded-2xl rounded-tl-none p-4">
+                            <p class="text-gray-300 leading-relaxed">
+                                Welcome to <strong>AegisEPC RFI Copilot</strong>. Currently indexed specifications: <strong id="welcome-specs-text" class="text-brand-cyan">loading specs...</strong>
+                            </p>
+                            <p class="text-gray-300 mt-2 leading-relaxed">
+                                Ask me any technical questions, and I will search the documents and provide responses with exact clause citations.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Input area -->
+                <div class="p-4 border-t border-brand-border bg-[#0e1328]/80 backdrop-blur-md">
+                    <!-- Suggestion Prompts -->
+                    <div class="flex flex-wrap gap-2 mb-3">
+                        <button onclick="setQuery('What are the redundant UPS module capacity requirements in Data Hall 2?')" class="text-xs bg-brand-bg hover:bg-brand-indigo/20 border border-brand-border hover:border-brand-indigo text-gray-400 hover:text-white px-3 py-1.5 rounded-full transition duration-150">
+                            "UPS capacity requirements?"
+                        </button>
+                        <button onclick="setQuery('What short-time withstand rating is required for low voltage switchgear?')" class="text-xs bg-brand-bg hover:bg-brand-indigo/20 border border-brand-border hover:border-brand-indigo text-gray-400 hover:text-white px-3 py-1.5 rounded-full transition duration-150">
+                            "Switchgear withstand rating?"
+                        </button>
+                        <button onclick="setQuery('What standards must the UPS units comply with for Tier III certification?')" class="text-xs bg-brand-bg hover:bg-brand-indigo/20 border border-brand-border hover:border-brand-indigo text-gray-400 hover:text-white px-3 py-1.5 rounded-full transition duration-150">
+                            "UPS compliance standards?"
+                        </button>
+                    </div>
+                    
+                    <form id="chat-form" onsubmit="submitQuestion(event)" class="relative flex items-center">
+                        <input id="chat-input" type="text" autocomplete="off" placeholder="Ask a question about the project specifications..." 
+                               class="w-full bg-brand-bg border border-brand-border focus:border-brand-cyan focus:ring-1 focus:ring-brand-cyan text-white text-sm rounded-xl pl-4 pr-12 py-3.5 focus:outline-none transition duration-150">
+                        <button type="submit" class="absolute right-3 bg-brand-cyan hover:bg-brand-cyan/85 text-black h-8 w-8 rounded-lg flex items-center justify-center transition">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Right Panel: Metadata & ContextViewer -->
+            <div class="w-full md:w-80 shrink-0 flex flex-col space-y-6">
+                <div class="glass-panel rounded-2xl p-6">
+                    <h3 class="font-display font-semibold text-white mb-3 flex items-center">
+                        <i class="fa-solid fa-book-open text-brand-cyan mr-2"></i> Specification Documents
+                    </h3>
+                    <p class="text-xs text-gray-400 mb-3">Ground-truth specs indexed for clause-tree navigation:</p>
+                    <div id="spec-doc-list" class="space-y-2 mb-4">
+                        <!-- Populated dynamically -->
+                    </div>
+                    <!-- Upload Spec -->
+                    <label class="w-full flex items-center justify-center space-x-2 text-xs border border-dashed border-brand-border hover:border-brand-cyan text-gray-400 hover:text-brand-cyan px-3 py-2.5 rounded-lg cursor-pointer transition">
+                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                        <span>Upload Specification (.md, .txt, .pdf)</span>
+                        <input type="file" id="spec-upload-input" accept=".md,.txt,.pdf" class="hidden" onchange="uploadFile('spec')">
+                    </label>
+                    <div id="spec-upload-status" class="text-[10px] mt-2 hidden"></div>
+                </div>
+
+                <div class="glass-panel rounded-2xl p-6 flex-grow flex flex-col">
+                    <h3 class="font-display font-semibold text-white mb-2 flex items-center">
+                        <i class="fa-solid fa-receipt text-brand-indigo mr-2"></i> Reference Citations
+                    </h3>
+                    <p class="text-xs text-gray-400 mb-4">Clicking citation links in the answers will show source fragments here.</p>
+                    <div id="citation-details" class="flex-grow flex items-center justify-center text-center p-4 border border-dashed border-brand-border rounded-lg bg-brand-bg/50">
+                        <div class="text-gray-500">
+                            <i class="fa-solid fa-link text-2xl mb-2 block"></i>
+                            <span class="text-xs">No citation selected</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 2: Compliance Report -->
+        <div id="panel-compliance" class="hidden flex-grow flex flex-col space-y-6">
+            <!-- Controls Card -->
+            <div class="glass-panel rounded-2xl p-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                    <div>
+                        <h2 class="text-lg font-display font-semibold text-white flex items-center">
+                            <i class="fa-solid fa-clipboard-check text-brand-cyan mr-2"></i> Submittal Compliance Checking Agent
+                        </h2>
+                        <p class="text-xs text-gray-400">Scan and cross-reference equipment submittals against construction specifications.</p>
+                    </div>
+                    
+                    <div class="flex items-center space-x-3 flex-wrap gap-y-2">
+                        <div class="flex flex-col">
+                            <label for="submittal-select" class="text-[10px] text-gray-400 uppercase font-semibold mb-1">Select Submittal</label>
+                            <select id="submittal-select" class="bg-brand-bg border border-brand-border text-white text-xs rounded-lg px-3 py-2 focus:outline-none focus:border-brand-cyan min-w-[240px]">
+                                <!-- Dynamically loaded -->
+                            </select>
+                        </div>
+
+                        <label class="mt-5 flex items-center space-x-1.5 text-xs border border-dashed border-brand-border hover:border-brand-emerald text-gray-400 hover:text-brand-emerald px-3 py-2 rounded-lg cursor-pointer transition">
+                            <i class="fa-solid fa-cloud-arrow-up"></i>
+                            <span>Upload</span>
+                            <input type="file" id="submittal-upload-input" accept=".md,.txt,.pdf" class="hidden" onchange="uploadFile('submittal')">
+                        </label>
+                        
+                        <button onclick="runComplianceCheck()" class="mt-5 bg-brand-cyan hover:bg-brand-cyan/85 text-black font-semibold text-xs px-4 py-2.5 rounded-lg flex items-center space-x-2 transition">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            <span>Run AI Audit</span>
+                        </button>
+
+                        <button id="btn-export-csv" onclick="exportCSV()" class="mt-5 hidden bg-brand-indigo/20 hover:bg-brand-indigo/30 border border-brand-indigo/40 text-brand-indigo text-xs px-3 py-2 rounded-lg flex items-center space-x-1.5 transition">
+                            <i class="fa-solid fa-file-csv"></i>
+                            <span>Export CSV</span>
+                        </button>
+                    </div>
+                    <div id="submittal-upload-status" class="text-[10px] mt-2 hidden"></div>
+                </div>
+            </div>
+
+            <!-- Loader / Processing Steps (Hidden by default) -->
+            <div id="compliance-loader" class="hidden glass-panel rounded-2xl p-6 glass-panel-glow-cyan">
+                <div class="flex items-center space-x-4 mb-4">
+                    <i class="fa-solid fa-gear text-brand-cyan text-2xl animate-spin"></i>
+                    <div>
+                        <h3 class="text-sm font-semibold text-white">Compliance Audit in Progress</h3>
+                        <p class="text-xs text-gray-400">AegisEPC Agent is verifying parameters against requirements...</p>
+                    </div>
+                </div>
+                <div class="w-full bg-brand-bg rounded-full h-1.5 overflow-hidden">
+                    <div id="compliance-progressbar" class="bg-brand-cyan h-full rounded-full transition-all duration-500" style="width: 5%"></div>
+                </div>
+                <div id="compliance-steps" class="mt-4 space-y-2 text-xs text-gray-400 font-mono">
+                    <!-- Steps will insert here -->
+                </div>
+            </div>
+
+            <!-- Results Panel (Hidden by default) -->
+            <div id="compliance-results" class="hidden flex-col space-y-6">
+                <!-- Compliance Verdict Banner -->
+                <div id="compliance-verdict" class="hidden glass-panel rounded-2xl p-5">
+                    <!-- Populated by JS after results -->
+                </div>
+
+                <!-- Summary Metrics -->
+                <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+                    <div class="glass-panel rounded-xl p-4 flex items-center space-x-4">
+                        <div class="h-10 w-10 rounded-lg bg-brand-indigo/10 text-brand-indigo flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-list-check"></i>
+                        </div>
+                        <div>
+                            <span class="text-[10px] text-gray-500 uppercase block">Checked Parameters</span>
+                            <span id="stat-total" class="text-2xl font-bold text-white">-</span>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-panel rounded-xl p-4 flex items-center space-x-4">
+                        <div class="h-10 w-10 rounded-lg bg-brand-emerald/10 text-brand-emerald flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-circle-check"></i>
+                        </div>
+                        <div>
+                            <span class="text-[10px] text-gray-500 uppercase block">Compliant</span>
+                            <span id="stat-compliant" class="text-2xl font-bold text-brand-emerald">-</span>
+                        </div>
+                    </div>
+
+                    <div class="glass-panel rounded-xl p-4 flex items-center space-x-4">
+                        <div class="h-10 w-10 rounded-lg bg-brand-rose/10 text-brand-rose flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </div>
+                        <div>
+                            <span class="text-[10px] text-gray-500 uppercase block">Critical Deviations</span>
+                            <span id="stat-critical" class="text-2xl font-bold text-brand-rose">-</span>
+                        </div>
+                    </div>
+
+                    <div class="glass-panel rounded-xl p-4 flex items-center space-x-4">
+                        <div class="h-10 w-10 rounded-lg bg-brand-amber/10 text-brand-amber flex items-center justify-center text-lg">
+                            <i class="fa-solid fa-exclamation"></i>
+                        </div>
+                        <div>
+                            <span class="text-[10px] text-gray-500 uppercase block">Warnings / Major</span>
+                            <span id="stat-warnings" class="text-2xl font-bold text-brand-amber">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Report Table -->
+                <div class="glass-panel rounded-2xl overflow-hidden border border-brand-border">
+                    <div class="px-6 py-4 border-b border-brand-border bg-[#0e1328] flex items-center justify-between">
+                        <h3 class="text-sm font-semibold text-white">Compliance Audit Trail</h3>
+                        <span class="text-[10px] bg-brand-indigo/10 border border-brand-indigo/30 text-brand-indigo px-2.5 py-1 rounded-full uppercase font-medium">As-Built Audit Log</span>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-brand-border text-xs text-left">
+                            <thead class="bg-[#0b0e1a] text-gray-400 uppercase tracking-wider text-[10px] font-semibold">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3.5">Parameter</th>
+                                    <th scope="col" class="px-6 py-3.5">Submitted Value</th>
+                                    <th scope="col" class="px-6 py-3.5">Specification Limit</th>
+                                    <th scope="col" class="px-6 py-3.5">Status</th>
+                                    <th scope="col" class="px-6 py-3.5">Severity</th>
+                                    <th scope="col" class="px-6 py-3.5">Confidence</th>
+                                    <th scope="col" class="px-6 py-3.5">Ground-Truth Reference</th>
+                                </tr>
+                            </thead>
+                            <tbody id="compliance-table-rows" class="divide-y divide-brand-border bg-brand-card/45">
+                                <!-- Loaded dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-brand-border py-4 text-center text-xs text-gray-500 bg-brand-bg/50">
+        <p>© 2026 AegisEPC • Built for ET AI Hackathon • Powered by Google Gemini</p>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        const API_BASE = window.location.origin;
+        let citationsStore = {};
+        let chatHistories = { all: [] };
+        let chatDOMStores = {};
+        let currentScope = 'all';
+
+        function getScopeHistory(scope) {
+            if (!chatHistories[scope]) chatHistories[scope] = [];
+            return chatHistories[scope];
+        }
+
+        // Active tab configuration
+        function switchTab(tabId) {
+            const rfiTab = document.getElementById('tab-rfi');
+            const complianceTab = document.getElementById('tab-compliance');
+            const rfiPanel = document.getElementById('panel-rfi');
+            const compliancePanel = document.getElementById('panel-compliance');
+
+            if (tabId === 'rfi') {
+                rfiTab.className = "border-b-2 border-brand-cyan text-brand-cyan px-1 py-4 text-sm font-medium font-display flex items-center space-x-2";
+                complianceTab.className = "border-b-2 border-transparent text-gray-400 hover:text-white hover:border-gray-500 px-1 py-4 text-sm font-medium font-display flex items-center space-x-2";
+                rfiPanel.classList.remove('hidden');
+                rfiPanel.classList.add('flex');
+                compliancePanel.classList.add('hidden');
+            } else {
+                complianceTab.className = "border-b-2 border-brand-cyan text-brand-cyan px-1 py-4 text-sm font-medium font-display flex items-center space-x-2";
+                rfiTab.className = "border-b-2 border-transparent text-gray-400 hover:text-white hover:border-gray-500 px-1 py-4 text-sm font-medium font-display flex items-center space-x-2";
+                compliancePanel.classList.remove('hidden');
+                rfiPanel.classList.add('hidden');
+                rfiPanel.classList.remove('flex');
+            }
+        }
+
+        // Initialize drop-down submittals
+        async function loadSubmittals() {
+            try {
+                const res = await fetch(`${API_BASE}/api/submittals`);
+                const data = await res.json();
+                const select = document.getElementById('submittal-select');
+                select.innerHTML = '';
+                data.submittals.forEach(filename => {
+                    const option = document.createElement('option');
+                    option.value = filename;
+                    // Format output name
+                    let displayName = filename.replace('.md', '').replace(/_/g, ' ').toUpperCase();
+                    option.textContent = displayName;
+                    select.appendChild(option);
+                });
+            } catch (err) {
+                console.error("Error fetching submittals:", err);
+            }
+        }
+
+        // Setup onload
+        window.addEventListener('DOMContentLoaded', () => {
+            loadSubmittals();
+            loadSpecs();
+        });
+
+        // Chat helpers
+        function setQuery(query) {
+            document.getElementById('chat-input').value = query;
+            document.getElementById('chat-input').focus();
+        }
+
+        let activeSpecsSummary = 'loaded specifications';
+
+        function clearChat() {
+            const chatMessages = document.getElementById('chat-messages');
+            const labelText = currentScope === 'all' ? `specifications (${activeSpecsSummary})` : currentScope;
+            chatMessages.innerHTML = `
+                <div class="flex space-x-3 max-w-3xl">
+                    <div class="h-8 w-8 rounded-full bg-brand-cyan/15 flex items-center justify-center text-brand-cyan shrink-0">
+                        <i class="fa-solid fa-robot"></i>
+                    </div>
+                    <div class="bg-brand-card border border-brand-border rounded-2xl rounded-tl-none p-4">
+                        <p class="text-gray-300">History cleared for scope: <span class="text-brand-cyan font-semibold">${labelText}</span>.</p>
+                    </div>
+                </div>
+            `;
+            citationsStore = {};
+            chatHistories[currentScope] = [];
+            delete chatDOMStores[currentScope];
+            showCitationDetails(null);
+        }
+
+        function onScopeChange() {
+            const scopeSelect = document.getElementById('doc-scope');
+            const newScope = scopeSelect ? scopeSelect.value : 'all';
+
+            if (newScope === currentScope) return;
+
+            // Save DOM of previous scope
+            const chatMessages = document.getElementById('chat-messages');
+            chatDOMStores[currentScope] = chatMessages.innerHTML;
+
+            currentScope = newScope;
+            showCitationDetails(null);
+
+            // Restore DOM if exists for newScope, else set default welcome
+            if (chatDOMStores[newScope]) {
+                chatMessages.innerHTML = chatDOMStores[newScope];
+            } else {
+                const labelText = newScope === 'all' ? 'All Documents' : newScope;
+                chatMessages.innerHTML = `
+                    <div class="flex space-x-3 max-w-3xl">
+                        <div class="h-8 w-8 rounded-full bg-brand-cyan/15 flex items-center justify-center text-brand-cyan shrink-0">
+                            <i class="fa-solid fa-robot"></i>
+                        </div>
+                        <div class="bg-brand-card border border-brand-border rounded-2xl rounded-tl-none p-4">
+                            <p class="text-gray-300 leading-relaxed">
+                                Active Chat Scope: <strong class="text-brand-cyan">${labelText}</strong>.
+                            </p>
+                            <p class="text-gray-300 mt-2 leading-relaxed">
+                                Ask any question specific to this scope. Conversation history is maintained independently for each document.
+                            </p>
+                        </div>
+                    </div>
+                `;
+            }
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function appendMessage(text, isUser = false, sources = null, scopeLabel = null) {
+            const chatMessages = document.getElementById('chat-messages');
+            const wrapper = document.createElement('div');
+            wrapper.className = isUser ? "flex space-x-3 max-w-3xl ml-auto justify-end" : "flex space-x-3 max-w-3xl";
+
+            // Copy button for AI responses
+            const copyBtn = !isUser ? `<button onclick="copyAnswer(this)" class="text-[10px] text-gray-500 hover:text-brand-cyan flex items-center space-x-1 transition" title="Copy answer"><i class="fa-regular fa-copy"></i><span>Copy</span></button>` : '';
+            
+            const badge = scopeLabel && !isUser ? `<span class="text-[10px] bg-brand-cyan/10 border border-brand-cyan/30 text-brand-cyan px-2 py-0.5 rounded font-mono font-medium">${scopeLabel}</span>` : '';
+
+            let sourceChips = '';
+            if (sources && sources.length > 0) {
+                sourceChips = `<div class="mt-3 pt-2.5 border-t border-brand-border flex flex-wrap gap-2">`;
+                sources.forEach((src, idx) => {
+                    const citationKey = `cite_${Date.now()}_${idx}`;
+                    citationsStore[citationKey] = src;
+                    sourceChips += `
+                        <button onclick="viewCitation('${citationKey}')" class="text-[10px] bg-brand-indigo/10 border border-brand-indigo/30 hover:border-brand-cyan hover:text-brand-cyan text-brand-indigo px-2 py-0.5 rounded flex items-center space-x-1 transition font-medium">
+                            <i class="fa-solid fa-link text-[8px]"></i>
+                            <span>${src.file.replace('.md', '')} [Cl. ${src.clause || 'N/A'}]</span>
+                        </button>
+                    `;
+                });
+                sourceChips += `</div>`;
+            }
+
+            const iconClass = isUser ? "fa-solid fa-user text-brand-indigo" : "fa-solid fa-robot text-brand-cyan";
+            const iconBg = isUser ? "bg-brand-indigo/15" : "bg-brand-cyan/15";
+            const cardBg = isUser ? "bg-brand-card border border-brand-indigo/35 rounded-tr-none" : "bg-brand-card border border-brand-border rounded-tl-none";
+
+            const markdownParsed = text
+                .replace(/\n/g, '<br>')
+                .replace(/\[Source:\s*([^,\]]+),\s*Clause\s*([^\]]+)\]/g, '<span class="text-brand-cyan font-semibold">[$1, Cl. $2]</span>')
+                .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+
+            wrapper.innerHTML = isUser ? `
+                <div class="${cardBg} rounded-2xl p-4 max-w-xl">
+                    <p class="text-gray-200">${markdownParsed}</p>
+                </div>
+                <div class="h-8 w-8 rounded-full ${iconBg} flex items-center justify-center shrink-0">
+                    <i class="${iconClass}"></i>
+                </div>
+            ` : `
+                <div class="h-8 w-8 rounded-full ${iconBg} flex items-center justify-center shrink-0">
+                    <i class="${iconClass}"></i>
+                </div>
+                <div class="${cardBg} rounded-2xl p-4 max-w-2xl">
+                    <p class="text-gray-300 leading-relaxed">${markdownParsed}</p>
+                    ${sourceChips}
+                    <div class="mt-2 flex items-center justify-between">
+                        ${copyBtn}
+                        ${badge}
+                    </div>
+                </div>
+            `;
+            
+            chatMessages.appendChild(wrapper);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function viewCitation(key) {
+            const data = citationsStore[key];
+            if (data) {
+                showCitationDetails(data);
+            }
+        }
+
+        function showCitationDetails(data) {
+            const container = document.getElementById('citation-details');
+            if (!data) {
+                container.innerHTML = `
+                    <div class="text-gray-500">
+                        <i class="fa-solid fa-link text-2xl mb-2 block"></i>
+                        <span class="text-xs">No citation selected</span>
+                    </div>
+                `;
+                return;
+            }
+            container.innerHTML = `
+                <div class="text-left w-full space-y-2">
+                    <div class="flex items-center justify-between border-b border-brand-border pb-2">
+                        <span class="text-xs font-bold text-white">${data.file}</span>
+                        <span class="text-[9px] bg-brand-cyan/15 text-brand-cyan px-2 py-0.5 rounded font-mono font-bold">
+                            Clause ${data.clause || 'N/A'}
+                        </span>
+                    </div>
+                    <div class="text-[10px] text-gray-400 uppercase font-semibold">SECTION: ${data.section || 'N/A'}</div>
+                    <div class="p-3 bg-brand-bg rounded-lg border border-brand-border text-xs text-gray-300 font-mono leading-relaxed max-h-[300px] overflow-y-auto">
+                        ${data.snippet}
+                    </div>
+                </div>
+            `;
+        }
+
+        async function submitQuestion(e) {
+            e.preventDefault();
+            const input = document.getElementById('chat-input');
+            const question = input.value.trim();
+            if (!question) return;
+
+            const scopeSelect = document.getElementById('doc-scope');
+            const scopeVal = scopeSelect ? scopeSelect.value : 'all';
+            currentScope = scopeVal;
+
+            input.value = '';
+            appendMessage(question, true);
+
+            // Append typing indicator
+            const chatMessages = document.getElementById('chat-messages');
+            const indicator = document.createElement('div');
+            indicator.id = 'chat-typing-indicator';
+            indicator.className = "flex space-x-3 max-w-3xl";
+            indicator.innerHTML = `
+                <div class="h-8 w-8 rounded-full bg-brand-cyan/15 flex items-center justify-center shrink-0">
+                    <i class="fa-solid fa-robot text-brand-cyan"></i>
+                </div>
+                <div class="bg-brand-card border border-brand-border rounded-2xl rounded-tl-none p-4 flex items-center space-x-1.5 py-3">
+                    <span class="h-2 w-2 bg-gray-500 rounded-full animate-bounce" style="animation-delay: 0ms"></span>
+                    <span class="h-2 w-2 bg-gray-500 rounded-full animate-bounce" style="animation-delay: 150ms"></span>
+                    <span class="h-2 w-2 bg-gray-500 rounded-full animate-bounce" style="animation-delay: 300ms"></span>
+                </div>
+            `;
+            chatMessages.appendChild(indicator);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+
+            const currentHistory = getScopeHistory(scopeVal);
+            const payloadHistory = currentHistory.slice(-10);
+
+            try {
+                const res = await fetch(`${API_BASE}/api/ask`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ question: question, history: payloadHistory, scope: scopeVal })
+                });
+                
+                // Remove typing indicator
+                const existingIndicator = document.getElementById('chat-typing-indicator');
+                if (existingIndicator) existingIndicator.remove();
+
+                if (!res.ok) {
+                    const err = await res.json();
+                    appendMessage(`Error: ${err.detail || 'Failed to fetch response'}`);
+                    return;
+                }
+
+                const data = await res.json();
+                const scopeLabel = scopeVal === 'all' ? '📂 All Docs' : `📄 ${scopeVal}`;
+                appendMessage(data.answer, false, data.sources, scopeLabel);
+
+                // Add to scope-specific history
+                currentHistory.push({ role: 'user', content: question });
+                currentHistory.push({ role: 'assistant', content: data.answer });
+
+                // Save DOM store for active scope
+                chatDOMStores[scopeVal] = chatMessages.innerHTML;
+
+            } catch (err) {
+                console.error(err);
+                const existingIndicator = document.getElementById('chat-typing-indicator');
+                if (existingIndicator) existingIndicator.remove();
+                appendMessage(`Connection error: Failed to connect to AegisEPC server. Make sure the FastAPI service is running.`);
+            }
+        }
+
+        // Compliance audit helpers
+        function addComplianceStep(text, delay) {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    const container = document.getElementById('compliance-steps');
+                    const div = document.createElement('div');
+                    div.className = "flex items-center space-x-2";
+                    div.innerHTML = `<span class="text-brand-cyan">❯</span> <span>${text}</span>`;
+                    container.appendChild(div);
+                    resolve();
+                }, delay);
+            });
+        }
+
+        async function runComplianceCheck() {
+            const select = document.getElementById('submittal-select');
+            const submittalFile = select.value;
+            if (!submittalFile) return;
+
+            const loader = document.getElementById('compliance-loader');
+            const results = document.getElementById('compliance-results');
+            const progressbar = document.getElementById('compliance-progressbar');
+            const stepsContainer = document.getElementById('compliance-steps');
+
+            // Reset UI
+            loader.classList.remove('hidden');
+            results.classList.add('hidden');
+            stepsContainer.innerHTML = '';
+            progressbar.style.width = '5%';
+
+            // Pipeline progress — reflects the real clause-tree two-step architecture
+            await addComplianceStep(`Initiating Compliance Agent for ${submittalFile}...`, 200);
+            progressbar.style.width = '15%';
+            await addComplianceStep('Step 1/2 — Extracting technical parameters from vendor submittal via LLM...', 400);
+            progressbar.style.width = '30%';
+            await addComplianceStep('Building parameter list: ratings, capacities, bypass times, monitoring...', 500);
+            progressbar.style.width = '45%';
+            await addComplianceStep('Step 2/2 — Navigating clause-tree headers to locate relevant spec requirements...', 500);
+            progressbar.style.width = '60%';
+            await addComplianceStep('Fetching ground-truth clause text for each parameter (structural retrieval)...', 500);
+            progressbar.style.width = '75%';
+            await addComplianceStep('Cross-checking submitted values vs spec requirements with confidence scoring...', 500);
+            progressbar.style.width = '90%';
+            await addComplianceStep('Aggregating compliance verdicts and computing severity ratings...', 300);
+            progressbar.style.width = '100%';
+
+            try {
+                const res = await fetch(`${API_BASE}/api/check-compliance`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ submittal_file: submittalFile })
+                });
+
+                if (!res.ok) {
+                    const err = await res.json();
+                    alert(`Error running compliance check: ${err.detail || 'Internal server error'}`);
+                    loader.classList.add('hidden');
+                    return;
+                }
+
+                const data = await res.json();
+                
+                // Delay slightly to finish audit transition
+                setTimeout(() => {
+                    loader.classList.add('hidden');
+                    results.classList.remove('hidden');
+                    renderComplianceResults(data.report);
+                }, 400);
+
+            } catch (err) {
+                console.error(err);
+                alert("Connection failed: Could not reach backend server to run compliance check.");
+                loader.classList.add('hidden');
+            }
+        }
+
+        function renderComplianceResults(report) {
+            lastReport = report;
+            const tableBody = document.getElementById('compliance-table-rows');
+            tableBody.innerHTML = '';
+
+            let totalChecked = report.length;
+            let compliantCount = 0;
+            let criticalDevCount = 0;
+            let warningCount = 0;
+
+            report.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-brand-border/20 transition-all border-b border-brand-border/40";
+
+                // Count stats
+                if (row.status === 'COMPLIANT') {
+                    compliantCount++;
+                } else if (row.status === 'DEVIATION') {
+                    if (row.severity === 'Critical') {
+                        criticalDevCount++;
+                    } else {
+                        warningCount++;
+                    }
+                } else {
+                    warningCount++; // UNABLE_TO_VERIFY
+                }
+
+                // Render badges
+                let statusBadge = '';
+                if (row.status === 'COMPLIANT') {
+                    statusBadge = `<span class="bg-brand-emerald/10 border border-brand-emerald/30 text-brand-emerald px-2.5 py-1 rounded-full uppercase tracking-wider font-semibold text-[9px]"><i class="fa-solid fa-circle-check mr-1 text-[8px]"></i>Pass</span>`;
+                } else if (row.status === 'DEVIATION') {
+                    statusBadge = `<span class="bg-brand-rose/10 border border-brand-rose/30 text-brand-rose px-2.5 py-1 rounded-full uppercase tracking-wider font-semibold text-[9px]"><i class="fa-solid fa-circle-xmark mr-1 text-[8px]"></i>Deviation</span>`;
+                } else {
+                    statusBadge = `<span class="bg-gray-500/10 border border-gray-500/30 text-gray-400 px-2.5 py-1 rounded-full uppercase tracking-wider font-semibold text-[9px]"><i class="fa-solid fa-circle-question mr-1 text-[8px]"></i>Unverified</span>`;
+                }
+
+                let severityBadge = '';
+                if (row.severity === 'Critical') {
+                    severityBadge = `<span class="text-brand-rose font-bold flex items-center"><i class="fa-solid fa-shield-virus mr-1 animate-pulse"></i>Critical</span>`;
+                } else if (row.severity === 'Major') {
+                    severityBadge = `<span class="text-brand-amber font-semibold flex items-center"><i class="fa-solid fa-triangle-exclamation mr-1"></i>Major</span>`;
+                } else if (row.severity === 'Minor') {
+                    severityBadge = `<span class="text-brand-indigo flex items-center">Minor</span>`;
+                } else {
+                    severityBadge = `<span class="text-gray-500">None</span>`;
+                }
+
+                // Confidence badge
+                const conf = row.confidence || 0;
+                let confColor = 'text-gray-400 border-gray-500/30 bg-gray-500/10';
+                if (conf >= 85) confColor = 'text-brand-emerald border-brand-emerald/30 bg-brand-emerald/10';
+                else if (conf >= 60) confColor = 'text-brand-amber border-brand-amber/30 bg-brand-amber/10';
+                else if (conf > 0) confColor = 'text-brand-rose border-brand-rose/30 bg-brand-rose/10';
+                const confBadge = conf > 0
+                    ? `<span class="${confColor} border px-2 py-0.5 rounded-full text-[10px] font-bold">${conf}%</span>`
+                    : `<span class="text-gray-500 text-[10px]">—</span>`;
+
+                tr.innerHTML = `
+                    <td class="px-6 py-4 font-semibold text-white max-w-[200px] truncate" title="${row.parameter}">
+                        ${row.parameter}
+                    </td>
+                    <td class="px-6 py-4 font-mono text-gray-300">
+                        ${row.submitted}
+                    </td>
+                    <td class="px-6 py-4 font-mono text-gray-400">
+                        ${row.required}
+                    </td>
+                    <td class="px-6 py-4">
+                        ${statusBadge}
+                    </td>
+                    <td class="px-6 py-4 text-[11px]">
+                        ${severityBadge}
+                    </td>
+                    <td class="px-6 py-4 text-center">
+                        ${confBadge}
+                    </td>
+                    <td class="px-6 py-4 text-[10px] text-gray-400">
+                        ${row.clause}
+                    </td>
+                `;
+
+                // Sub-row for explanation to look neat
+                const expTr = document.createElement('tr');
+                expTr.className = "bg-[#0b0e1a]/30 border-b border-brand-border/40 text-gray-400";
+                expTr.innerHTML = `
+                    <td colspan="7" class="px-6 py-3 text-[11px] leading-relaxed">
+                        <div class="flex items-start space-x-1.5">
+                            <span class="text-brand-indigo font-bold">AI Audit Remark:</span>
+                            <span>${row.explanation}</span>
+                        </div>
+                    </td>
+                `;
+
+                tableBody.appendChild(tr);
+                tableBody.appendChild(expTr);
+            });
+
+            // Update KPI elements
+            document.getElementById('stat-total').textContent = totalChecked;
+            document.getElementById('stat-compliant').textContent = compliantCount;
+            document.getElementById('stat-critical').textContent = criticalDevCount;
+            document.getElementById('stat-warnings').textContent = warningCount;
+
+            // Show export CSV button
+            document.getElementById('btn-export-csv').classList.remove('hidden');
+
+            // Show verdict banner
+            const verdictEl = document.getElementById('compliance-verdict');
+            verdictEl.classList.remove('hidden');
+            if (criticalDevCount > 0) {
+                verdictEl.className = 'glass-panel rounded-2xl p-5 glass-panel-glow-rose';
+                verdictEl.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <div class="h-10 w-10 rounded-full bg-brand-rose/15 flex items-center justify-center text-brand-rose text-xl shrink-0">
+                            <i class="fa-solid fa-shield-virus"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-bold text-brand-rose">${criticalDevCount} Critical Deviation${criticalDevCount > 1 ? 's' : ''} Found</h3>
+                            <p class="text-xs text-gray-400">This submittal does NOT meet specification requirements. Recommend: <strong class="text-white">Return to vendor for revision.</strong></p>
+                        </div>
+                    </div>
+                `;
+            } else if (warningCount > 0) {
+                verdictEl.className = 'glass-panel rounded-2xl p-5';
+                verdictEl.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <div class="h-10 w-10 rounded-full bg-brand-amber/15 flex items-center justify-center text-brand-amber text-xl shrink-0">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-bold text-brand-amber">${warningCount} Warning${warningCount > 1 ? 's' : ''} / Minor Issue${warningCount > 1 ? 's' : ''}</h3>
+                            <p class="text-xs text-gray-400">Submittal has non-critical deviations. Review recommended before approval.</p>
+                        </div>
+                    </div>
+                `;
+            } else {
+                verdictEl.className = 'glass-panel rounded-2xl p-5 glass-panel-glow-cyan';
+                verdictEl.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <div class="h-10 w-10 rounded-full bg-brand-emerald/15 flex items-center justify-center text-brand-emerald text-xl shrink-0">
+                            <i class="fa-solid fa-circle-check"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-bold text-brand-emerald">Submittal Compliant</h3>
+                            <p class="text-xs text-gray-400">All verifiable parameters meet specification requirements. Recommend: <strong class="text-white">Proceed to approval.</strong></p>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // --- Load specs into the sidebar & scope dropdown ---
+        async function loadSpecs() {
+            try {
+                const res = await fetch(`${API_BASE}/api/specs`);
+                const data = await res.json();
+                const list = document.getElementById('spec-doc-list');
+                const scopeSelect = document.getElementById('doc-scope');
+                
+                list.innerHTML = '';
+                if (scopeSelect) {
+                    const currentVal = scopeSelect.value;
+                    scopeSelect.innerHTML = '<option value="all" class="bg-brand-card text-white">📂 All Documents</option>';
+                    data.specs.forEach(fname => {
+                        const opt = document.createElement('option');
+                        opt.value = fname;
+                        opt.className = 'bg-brand-card text-white';
+                        opt.textContent = `📄 ${fname}`;
+                        scopeSelect.appendChild(opt);
+                    });
+                    if (data.specs.includes(currentVal)) {
+                        scopeSelect.value = currentVal;
+                    }
+                }
+
+                if (data.specs && data.specs.length > 0) {
+                    activeSpecsSummary = data.specs.map(s => s.replace('.md', '').replace('.txt', '')).join(', ');
+                } else {
+                    activeSpecsSummary = 'no specifications uploaded yet';
+                }
+                const welcomeEl = document.getElementById('welcome-specs-text');
+                if (welcomeEl) {
+                    welcomeEl.textContent = activeSpecsSummary;
+                }
+
+                data.specs.forEach(fname => {
+                    const div = document.createElement('div');
+                    div.className = 'p-2.5 bg-brand-bg rounded-lg border border-brand-border flex items-center space-x-2.5 hover:border-brand-cyan/45 transition';
+                    div.innerHTML = `
+                        <i class="fa-solid fa-file-lines text-brand-cyan text-sm"></i>
+                        <span class="text-xs font-medium text-white truncate">${fname}</span>
+                    `;
+                    list.appendChild(div);
+                });
+                if (data.specs.length === 0) {
+                    list.innerHTML = '<p class="text-xs text-gray-500 italic">No specifications uploaded yet.</p>';
+                }
+            } catch (err) {
+                console.error('Error loading specs:', err);
+            }
+        }
+
+        // --- File upload handler ---
+        async function uploadFile(type) {
+            const inputId = type === 'spec' ? 'spec-upload-input' : 'submittal-upload-input';
+            const statusId = type === 'spec' ? 'spec-upload-status' : 'submittal-upload-status';
+            const input = document.getElementById(inputId);
+            const statusEl = document.getElementById(statusId);
+
+            if (!input.files || !input.files[0]) return;
+            const file = input.files[0];
+
+            statusEl.classList.remove('hidden');
+            statusEl.className = 'text-[10px] mt-2 text-brand-cyan';
+            statusEl.textContent = `Uploading ${file.name}...`;
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            const endpoint = type === 'spec' ? '/api/upload/spec' : '/api/upload/submittal';
+
+            try {
+                const res = await fetch(`${API_BASE}${endpoint}`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (!res.ok) {
+                    const err = await res.json();
+                    statusEl.className = 'text-[10px] mt-2 text-brand-rose';
+                    statusEl.textContent = `Error: ${err.detail || 'Upload failed'}`;
+                    return;
+                }
+
+                const data = await res.json();
+                statusEl.className = 'text-[10px] mt-2 text-brand-emerald';
+                statusEl.textContent = data.message;
+
+                // Refresh the relevant list
+                if (type === 'spec') {
+                    loadSpecs();
+                } else {
+                    loadSubmittals();
+                }
+
+                // Clear the input so the same file can be re-uploaded
+                input.value = '';
+
+                // Auto-hide success message after 5 seconds
+                setTimeout(() => {
+                    statusEl.classList.add('hidden');
+                }, 5000);
+
+            } catch (err) {
+                console.error('Upload error:', err);
+                statusEl.className = 'text-[10px] mt-2 text-brand-rose';
+                statusEl.textContent = 'Connection error: Could not reach server.';
+            }
+        }
+
+        // --- Export compliance report as CSV ---
+        let lastReport = [];
+        function exportCSV() {
+            if (lastReport.length === 0) return;
+
+            const headers = ['Parameter', 'Submitted Value', 'Specification Requirement', 'Status', 'Severity', 'Confidence', 'Clause Reference', 'Explanation'];
+            const rows = lastReport.map(r => [
+                r.parameter,
+                r.submitted,
+                r.required,
+                r.status,
+                r.severity,
+                r.confidence || 0,
+                r.clause,
+                `"${(r.explanation || '').replace(/"/g, '""')}"`
+            ]);
+
+            let csv = headers.join(',') + '\n';
+            rows.forEach(row => {
+                csv += row.map(v => {
+                    const s = String(v);
+                    return s.includes(',') || s.includes('"') || s.includes('\n') ? `"${s.replace(/"/g, '""')}"` : s;
+                }).join(',') + '\n';
+            });
+
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            const submittalName = document.getElementById('submittal-select').value.replace('.md', '');
+            link.download = `compliance_report_${submittalName}_${new Date().toISOString().slice(0,10)}.csv`;
+            link.click();
+        }
+
+        // --- Copy RFI answer to clipboard ---
+        function copyAnswer(btn) {
+            const card = btn.closest('div.rounded-2xl');
+            if (!card) return;
+            const textEl = card.querySelector('p');
+            if (!textEl) return;
+
+            const text = textEl.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalHTML = btn.innerHTML;
+                btn.innerHTML = '<i class="fa-solid fa-check"></i><span>Copied!</span>';
+                btn.classList.add('text-brand-emerald');
+                setTimeout(() => {
+                    btn.innerHTML = originalHTML;
+                    btn.classList.remove('text-brand-emerald');
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>
