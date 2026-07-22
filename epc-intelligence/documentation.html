@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AegisEPC — Detailed Structured Engineering & Technical Documentation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #ffffff;
+            color: #1e293b;
+        }
+        @media print {
+            body {
+                background-color: #ffffff;
+                color: #000000;
+            }
+            .no-print {
+                display: none;
+            }
+            .page-break {
+                page-break-before: always;
+            }
+        }
+    </style>
+</head>
+<body class="font-sans antialiased bg-gray-50 text-slate-800">
+
+    <!-- Top Action Bar (Hidden on Print) -->
+    <div class="no-print sticky top-0 bg-slate-900 text-white px-6 py-4 flex items-center justify-between shadow-md z-50">
+        <div class="flex items-center space-x-3">
+            <div class="h-8 w-8 rounded bg-gradient-to-tr from-indigo-500 to-cyan-500 flex items-center justify-center font-bold font-display">D</div>
+            <div>
+                <span class="font-bold tracking-tight">AEGIS<span class="text-cyan-400">EPC</span> Documentation</span>
+                <span class="text-[10px] text-slate-400 block -mt-1">Print/Save to PDF</span>
+            </div>
+        </div>
+        <button onclick="window.print()" class="bg-cyan-500 hover:bg-cyan-600 text-white text-xs font-bold px-4 py-2 rounded-lg flex items-center space-x-2 transition">
+            <i class="fa-solid fa-print"></i>
+            <span>Print / Save to PDF</span>
+        </button>
+    </div>
+
+    <!-- MAIN DOCUMENTATION -->
+    <div class="max-w-4xl mx-auto my-8 bg-white p-12 shadow-sm rounded-2xl border border-slate-100 relative">
+        
+        <!-- COVER HEADER -->
+        <div class="border-b border-slate-100 pb-8 mb-8">
+            <div class="flex items-center space-x-3 mb-2">
+                <div class="h-10 w-10 rounded-lg bg-slate-950 text-white flex items-center justify-center text-xl shadow font-display font-bold">A</div>
+                <h1 class="text-3xl font-display font-extrabold tracking-tight text-slate-900">AegisEPC Documentation</h1>
+            </div>
+            <p class="text-slate-500 text-sm">Detailed Structured Engineering & Technical Platform Manual</p>
+            <p class="text-[11px] text-cyan-600 mt-1 font-mono">Repo: https://github.com/Jaswanth258/AI-Data-Centre-EPC-Platform</p>
+        </div>
+
+        <!-- SECTION 1 -->
+        <div class="mb-10">
+            <h2 class="text-xl font-display font-bold text-slate-900 mb-4 border-b border-slate-100 pb-2">1. System Overview & Core Concept</h2>
+            <p class="text-sm text-slate-600 leading-relaxed mb-4">
+                AegisEPC is an enterprise-grade AI-powered project intelligence layer designed to mitigate procurement misalignment and quality compliance bottlenecks in Engineering, Procurement, and Construction (EPC) projects (such as hyperscale data centre builds).
+            </p>
+            <p class="text-sm text-slate-600 leading-relaxed mb-4">
+                The platform replaces traditional Vector DB-based RAG engines with **Clause-Tree Retrieval**, which structures engineering documents into deterministic section trees to eliminate chunk truncation errors and guarantee 100% citation traceability.
+            </p>
+        </div>
+
+        <!-- SECTION 2 -->
+        <div class="mb-10">
+            <h2 class="text-xl font-display font-bold text-slate-900 mb-4 border-b border-slate-100 pb-2">2. Architecture & Agent Workflows</h2>
+            
+            <h3 class="text-sm font-bold text-slate-800 mb-2">2.1 Agent 1: RFI & Knowledge Copilot</h3>
+            <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                Allows engineers to query specifications in natural language. The agent retrieves the relevant clause index via table-of-contents navigation, fetches exact text bodies, and answers queries with strict citations. Supports per-document memory isolation.
+            </p>
+
+            <h3 class="text-sm font-bold text-slate-800 mb-2">2.2 Agent 2: Quality Compliance Agent</h3>
+            <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                Automates vendor submittal reviews. Uploading a submittal extracts all engineering parameters, matches them dynamically to spec clauses, computes verdicts (Compliant/Deviation), flags warning levels, and exports CSV logs.
+            </p>
+        </div>
+
+        <!-- SECTION 3 -->
+        <div class="mb-10 page-break">
+            <h2 class="text-xl font-display font-bold text-slate-900 mb-4 border-b border-slate-100 pb-2">3. Clause-Tree vs Vector RAG</h2>
+            <div class="overflow-x-auto border border-slate-200 rounded-xl">
+                <table class="min-w-full divide-y divide-slate-200 text-xs text-left">
+                    <thead class="bg-slate-50 text-slate-700 uppercase font-semibold">
+                        <tr>
+                            <th class="px-4 py-3">Feature</th>
+                            <th class="px-4 py-3">Traditional Vector RAG</th>
+                            <th class="px-4 py-3">AegisEPC Clause-Tree RAG</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100 text-slate-600">
+                        <tr>
+                            <td class="px-4 py-3 font-semibold">Ingestion Method</td>
+                            <td class="px-4 py-3">Splits text arbitrarily every 500 tokens</td>
+                            <td class="px-4 py-3">Parses document headers into structured nodes</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3 font-semibold">Context Retention</td>
+                            <td class="px-4 py-3">Breaks lists/clauses across chunk limits</td>
+                            <td class="px-4 py-3">Retains full clause text and section hierarchy</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3 font-semibold">Search Mechanism</td>
+                            <td class="px-4 py-3">Vector cosine similarity</td>
+                            <td class="px-4 py-3">TOC navigation + exact dictionary lookup</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3 font-semibold">Hallucination Risk</td>
+                            <td class="px-4 py-3">High (retrieves irrelevant semantic text)</td>
+                            <td class="px-4 py-3">Zero (retrieves exact specified clause text)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SECTION 4 -->
+        <div class="mb-10">
+            <h2 class="text-xl font-display font-bold text-slate-900 mb-4 border-b border-slate-100 pb-2">4. Ingestion & Document Parsing</h2>
+            <p class="text-xs text-slate-600 leading-relaxed mb-4">
+                The parser (defined in `backend/doc_parser.py`) indexes markdown headings (`#`, `##`, `###`) into distinct section-clause maps. Bullet points, parameter descriptions, and numerical requirements are grouped inside their respective parent nodes. The PDF parser uses `pdfplumber` to extract clean text while retaining layout structure.
+            </p>
+        </div>
+
+        <!-- SECTION 5 -->
+        <div class="mb-10">
+            <h2 class="text-xl font-display font-bold text-slate-900 mb-4 border-b border-slate-100 pb-2">5. Installation & Execution</h2>
+            <pre class="bg-slate-50 border border-slate-200 rounded-lg p-4 text-[10px] text-slate-700 font-mono overflow-x-auto leading-relaxed">
+git clone https://github.com/Jaswanth258/AI-Data-Centre-EPC-Platform.git
+cd AI-Data-Centre-EPC-Platform
+python -m venv .venv
+.venv\Scripts\activate
+pip install -r backend/requirements.txt
+$env:GEMINI_API_KEY="your-gemini-key"
+python -m uvicorn backend.main:app --host 127.0.0.1 --port 8001</pre>
+        </div>
+
+    </div>
+
+</body>
+</html>
