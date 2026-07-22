@@ -140,6 +140,10 @@
                     <i class="fa-solid fa-clipboard-check"></i>
                     <span>Specification & Quality Compliance</span>
                 </button>
+                <button onclick="switchTab('deck')" id="tab-deck" class="border-b-2 border-transparent text-gray-400 hover:text-white hover:border-gray-500 px-1 py-4 text-sm font-medium font-display flex items-center space-x-2">
+                    <i class="fa-solid fa-presentation-screen"></i>
+                    <span>Presentation Deck</span>
+                </button>
             </nav>
         </div>
     </div>
@@ -388,6 +392,287 @@
             </div>
         </div>
 
+        <!-- Tab 3: Presentation Deck -->
+        <div id="panel-deck" class="hidden flex-grow flex flex-col">
+            <!-- Slide Container -->
+            <div class="relative glass-panel rounded-2xl overflow-hidden" style="min-height: 680px;">
+                <!-- Slide Navigation Header -->
+                <div class="px-6 py-3 border-b border-brand-border bg-[#0e1328] flex items-center justify-between">
+                    <div class="flex items-center space-x-3">
+                        <div class="h-7 w-7 rounded-lg bg-gradient-to-tr from-brand-indigo to-brand-cyan flex items-center justify-center">
+                            <i class="fa-solid fa-tv text-white text-xs"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-sm font-semibold text-white font-display">AegisEPC — Hackathon Presentation</h2>
+                            <p class="text-[9px] text-gray-500">Use arrow keys or buttons to navigate</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-3">
+                        <span id="slide-counter" class="text-[10px] text-gray-400 font-mono bg-brand-bg px-2.5 py-1 rounded border border-brand-border">1 / 7</span>
+                        <button onclick="prevSlide()" class="h-8 w-8 rounded-lg bg-brand-bg border border-brand-border text-gray-400 hover:text-brand-cyan hover:border-brand-cyan/50 transition flex items-center justify-center"><i class="fa-solid fa-chevron-left text-xs"></i></button>
+                        <button onclick="nextSlide()" class="h-8 w-8 rounded-lg bg-brand-bg border border-brand-border text-gray-400 hover:text-brand-cyan hover:border-brand-cyan/50 transition flex items-center justify-center"><i class="fa-solid fa-chevron-right text-xs"></i></button>
+                    </div>
+                </div>
+
+                <!-- Slides -->
+                <div id="slides-wrapper" class="relative" style="min-height: 620px;">
+
+                    <!-- SLIDE 1: Title -->
+                    <div class="deck-slide p-10 md:p-16 flex flex-col items-center justify-center text-center" style="min-height: 620px;">
+                        <div class="mb-6">
+                            <div class="h-20 w-20 mx-auto rounded-2xl bg-gradient-to-tr from-brand-indigo to-brand-cyan flex items-center justify-center shadow-2xl shadow-brand-cyan/30 mb-6">
+                                <i class="fa-solid fa-shield-halved text-white text-4xl"></i>
+                            </div>
+                            <h1 class="font-display text-5xl md:text-6xl font-bold text-white tracking-tight">
+                                AEGIS<span class="text-brand-cyan font-light">EPC</span>
+                            </h1>
+                            <p class="text-xl md:text-2xl text-gray-300 mt-3 font-light">AI-Powered Project Intelligence for EPC Engineering</p>
+                            <div class="h-1 w-24 mx-auto mt-6 rounded-full bg-gradient-to-r from-brand-indigo to-brand-cyan"></div>
+                        </div>
+                        <div class="mt-8 flex flex-wrap justify-center gap-3">
+                            <span class="text-[11px] bg-brand-cyan/10 border border-brand-cyan/30 text-brand-cyan px-3 py-1.5 rounded-full font-medium"><i class="fa-solid fa-robot mr-1"></i> Gemini LLM</span>
+                            <span class="text-[11px] bg-brand-indigo/10 border border-brand-indigo/30 text-brand-indigo px-3 py-1.5 rounded-full font-medium"><i class="fa-solid fa-tree mr-1"></i> Clause-Tree RAG</span>
+                            <span class="text-[11px] bg-brand-emerald/10 border border-brand-emerald/30 text-brand-emerald px-3 py-1.5 rounded-full font-medium"><i class="fa-solid fa-shield-check mr-1"></i> Compliance AI</span>
+                            <span class="text-[11px] bg-brand-amber/10 border border-brand-amber/30 text-brand-amber px-3 py-1.5 rounded-full font-medium"><i class="fa-solid fa-bolt mr-1"></i> FastAPI + JS</span>
+                        </div>
+                        <p class="mt-10 text-xs text-gray-500">ET AI Hackathon 2026 &bull; Team AegisEPC</p>
+                    </div>
+
+                    <!-- SLIDE 2: Problem Statement -->
+                    <div class="deck-slide hidden p-10 md:p-14" style="min-height: 620px;">
+                        <div class="flex items-center space-x-3 mb-8">
+                            <div class="h-10 w-10 rounded-xl bg-brand-rose/15 flex items-center justify-center text-brand-rose text-lg"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                            <h2 class="font-display text-3xl font-bold text-white">The Problem</h2>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                            <div class="glass-panel rounded-xl p-6 glass-panel-glow-rose text-center">
+                                <span class="text-4xl font-bold text-brand-rose block font-display">67%</span>
+                                <p class="text-sm text-gray-300 mt-2">of EPC projects face schedule overruns</p>
+                                <p class="text-[10px] text-gray-500 mt-1">Source: McKinsey Capital Projects Report</p>
+                            </div>
+                            <div class="glass-panel rounded-xl p-6 glass-panel-glow-rose text-center">
+                                <span class="text-4xl font-bold text-brand-amber block font-display">3-5 Days</span>
+                                <p class="text-sm text-gray-300 mt-2">Manual review per vendor submittal</p>
+                                <p class="text-[10px] text-gray-500 mt-1">Per engineer per document package</p>
+                            </div>
+                            <div class="glass-panel rounded-xl p-6 glass-panel-glow-rose text-center">
+                                <span class="text-4xl font-bold text-brand-rose block font-display">$15B+</span>
+                                <p class="text-sm text-gray-300 mt-2">At risk from procurement misalignment</p>
+                                <p class="text-[10px] text-gray-500 mt-1">National DC capacity: 2,700 MW by 2027</p>
+                            </div>
+                        </div>
+                        <div class="glass-panel rounded-xl p-6 border-l-4 border-brand-rose">
+                            <h3 class="text-sm font-bold text-white mb-2"><i class="fa-solid fa-bullseye text-brand-rose mr-2"></i>Root Cause</h3>
+                            <p class="text-sm text-gray-300 leading-relaxed">Engineers manually cross-reference vendor submittals (PDFs with hundreds of technical parameters) against ground-truth specifications (IEC, ANSI, project-specific docs). A single missed non-conformance — like 8-minute battery autonomy instead of the required 10 minutes — can cause months of rework, equipment rejection, and schedule delays worth millions.</p>
+                        </div>
+                    </div>
+
+                    <!-- SLIDE 3: Our Solution -->
+                    <div class="deck-slide hidden p-10 md:p-14" style="min-height: 620px;">
+                        <div class="flex items-center space-x-3 mb-8">
+                            <div class="h-10 w-10 rounded-xl bg-brand-cyan/15 flex items-center justify-center text-brand-cyan text-lg"><i class="fa-solid fa-lightbulb"></i></div>
+                            <h2 class="font-display text-3xl font-bold text-white">Our Solution</h2>
+                        </div>
+                        <p class="text-lg text-gray-300 mb-8 max-w-3xl">AegisEPC is an <strong class="text-brand-cyan">AI-powered project intelligence layer</strong> that automates specification retrieval, RFI resolution, and vendor submittal compliance verification in seconds — not days.</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="glass-panel rounded-xl p-6 hover:border-brand-cyan/40 transition">
+                                <div class="flex items-center space-x-3 mb-4">
+                                    <div class="h-10 w-10 rounded-lg bg-brand-cyan/10 text-brand-cyan flex items-center justify-center text-lg"><i class="fa-solid fa-comments"></i></div>
+                                    <h3 class="text-sm font-bold text-white">RFI Intelligence Agent</h3>
+                                </div>
+                                <ul class="space-y-2 text-sm text-gray-300">
+                                    <li class="flex items-start space-x-2"><i class="fa-solid fa-check text-brand-emerald text-[10px] mt-1.5"></i><span>Natural language Q&A over engineering specifications</span></li>
+                                    <li class="flex items-start space-x-2"><i class="fa-solid fa-check text-brand-emerald text-[10px] mt-1.5"></i><span>Exact clause citations with interactive previews</span></li>
+                                    <li class="flex items-start space-x-2"><i class="fa-solid fa-check text-brand-emerald text-[10px] mt-1.5"></i><span>Per-document isolated chat memory</span></li>
+                                    <li class="flex items-start space-x-2"><i class="fa-solid fa-check text-brand-emerald text-[10px] mt-1.5"></i><span>Multi-turn stateful conversation with query condensation</span></li>
+                                </ul>
+                            </div>
+                            <div class="glass-panel rounded-xl p-6 hover:border-brand-indigo/40 transition">
+                                <div class="flex items-center space-x-3 mb-4">
+                                    <div class="h-10 w-10 rounded-lg bg-brand-indigo/10 text-brand-indigo flex items-center justify-center text-lg"><i class="fa-solid fa-clipboard-check"></i></div>
+                                    <h3 class="text-sm font-bold text-white">Quality Compliance Agent</h3>
+                                </div>
+                                <ul class="space-y-2 text-sm text-gray-300">
+                                    <li class="flex items-start space-x-2"><i class="fa-solid fa-check text-brand-emerald text-[10px] mt-1.5"></i><span>Automated parameter extraction from vendor submittals</span></li>
+                                    <li class="flex items-start space-x-2"><i class="fa-solid fa-check text-brand-emerald text-[10px] mt-1.5"></i><span>Cross-checks each parameter against spec clauses</span></li>
+                                    <li class="flex items-start space-x-2"><i class="fa-solid fa-check text-brand-emerald text-[10px] mt-1.5"></i><span>Confidence scoring + severity classification</span></li>
+                                    <li class="flex items-start space-x-2"><i class="fa-solid fa-check text-brand-emerald text-[10px] mt-1.5"></i><span>Export actionable CSV compliance reports</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SLIDE 4: Technical Architecture -->
+                    <div class="deck-slide hidden p-10 md:p-14" style="min-height: 620px;">
+                        <div class="flex items-center space-x-3 mb-8">
+                            <div class="h-10 w-10 rounded-xl bg-brand-indigo/15 flex items-center justify-center text-brand-indigo text-lg"><i class="fa-solid fa-microchip"></i></div>
+                            <h2 class="font-display text-3xl font-bold text-white">Technical Innovation</h2>
+                        </div>
+                        <div class="glass-panel rounded-xl p-6 border-l-4 border-brand-cyan mb-6">
+                            <h3 class="text-base font-bold text-brand-cyan mb-2"><i class="fa-solid fa-tree mr-2"></i>Clause-Tree Structural Retrieval</h3>
+                            <p class="text-sm text-gray-300 leading-relaxed">Unlike standard RAG that chunks documents into arbitrary 500-token blocks — cutting clauses mid-sentence and losing hierarchical context — AegisEPC <strong class="text-white">parses document headers into a deterministic clause tree</strong> (Section &rarr; Clause X.Y). The LLM navigates the table of contents first, then fetches exact ground-truth clause text. Result: <strong class="text-brand-emerald">zero chunk-truncation, 100% verifiable citations, and exact clause references.</strong></p>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="glass-panel rounded-xl p-5">
+                                <h4 class="text-xs font-bold text-brand-rose uppercase tracking-wider mb-3"><i class="fa-solid fa-xmark mr-1"></i> Traditional Vector RAG</h4>
+                                <ul class="space-y-2 text-xs text-gray-400">
+                                    <li class="flex items-start space-x-2"><i class="fa-solid fa-xmark text-brand-rose text-[9px] mt-1"></i><span>Chunks cut across clause boundaries</span></li>
+                                    <li class="flex items-start space-x-2"><i class="fa-solid fa-xmark text-brand-rose text-[9px] mt-1"></i><span>Cosine similarity misses exact matches</span></li>
+                                    <li class="flex items-start space-x-2"><i class="fa-solid fa-xmark text-brand-rose text-[9px] mt-1"></i><span>No structural awareness of sections</span></li>
+                                    <li class="flex items-start space-x-2"><i class="fa-solid fa-xmark text-brand-rose text-[9px] mt-1"></i><span>Hallucination-prone on technical data</span></li>
+                                </ul>
+                            </div>
+                            <div class="glass-panel rounded-xl p-5 glass-panel-glow-cyan">
+                                <h4 class="text-xs font-bold text-brand-cyan uppercase tracking-wider mb-3"><i class="fa-solid fa-check mr-1"></i> AegisEPC Clause-Tree</h4>
+                                <ul class="space-y-2 text-xs text-gray-300">
+                                    <li class="flex items-start space-x-2"><i class="fa-solid fa-check text-brand-emerald text-[9px] mt-1"></i><span>Preserves document hierarchy exactly</span></li>
+                                    <li class="flex items-start space-x-2"><i class="fa-solid fa-check text-brand-emerald text-[9px] mt-1"></i><span>LLM navigates TOC, then fetches clause</span></li>
+                                    <li class="flex items-start space-x-2"><i class="fa-solid fa-check text-brand-emerald text-[9px] mt-1"></i><span>Deterministic, explainable retrieval</span></li>
+                                    <li class="flex items-start space-x-2"><i class="fa-solid fa-check text-brand-emerald text-[9px] mt-1"></i><span>Zero embeddings, zero vector DB needed</span></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SLIDE 5: Tech Stack -->
+                    <div class="deck-slide hidden p-10 md:p-14" style="min-height: 620px;">
+                        <div class="flex items-center space-x-3 mb-8">
+                            <div class="h-10 w-10 rounded-xl bg-brand-emerald/15 flex items-center justify-center text-brand-emerald text-lg"><i class="fa-solid fa-layer-group"></i></div>
+                            <h2 class="font-display text-3xl font-bold text-white">Tech Stack & Pipeline</h2>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+                            <div class="glass-panel rounded-xl p-5 text-center hover:border-brand-cyan/40 transition">
+                                <i class="fa-solid fa-brain text-3xl text-brand-cyan mb-3"></i>
+                                <h4 class="text-xs font-bold text-white mb-1">LLM Engine</h4>
+                                <p class="text-[10px] text-gray-400">Google Gemini Flash</p>
+                                <p class="text-[9px] text-gray-500 mt-1">Free-tier rate-limited</p>
+                            </div>
+                            <div class="glass-panel rounded-xl p-5 text-center hover:border-brand-indigo/40 transition">
+                                <i class="fa-solid fa-server text-3xl text-brand-indigo mb-3"></i>
+                                <h4 class="text-xs font-bold text-white mb-1">Backend</h4>
+                                <p class="text-[10px] text-gray-400">Python + FastAPI</p>
+                                <p class="text-[9px] text-gray-500 mt-1">Async REST API</p>
+                            </div>
+                            <div class="glass-panel rounded-xl p-5 text-center hover:border-brand-emerald/40 transition">
+                                <i class="fa-solid fa-code text-3xl text-brand-emerald mb-3"></i>
+                                <h4 class="text-xs font-bold text-white mb-1">Frontend</h4>
+                                <p class="text-[10px] text-gray-400">HTML + Tailwind + JS</p>
+                                <p class="text-[9px] text-gray-500 mt-1">Glassmorphism UI</p>
+                            </div>
+                            <div class="glass-panel rounded-xl p-5 text-center hover:border-brand-amber/40 transition">
+                                <i class="fa-solid fa-file-pdf text-3xl text-brand-amber mb-3"></i>
+                                <h4 class="text-xs font-bold text-white mb-1">Doc Parsing</h4>
+                                <p class="text-[10px] text-gray-400">pdfplumber + MD</p>
+                                <p class="text-[9px] text-gray-500 mt-1">PDF, TXT, Markdown</p>
+                            </div>
+                        </div>
+                        <div class="glass-panel rounded-xl p-6">
+                            <h4 class="text-xs font-bold text-brand-cyan uppercase tracking-wider mb-4">AI Agent Pipeline (2-Step)</h4>
+                            <div class="flex flex-col md:flex-row items-center justify-between gap-3">
+                                <div class="glass-panel rounded-lg px-4 py-3 text-center flex-1">
+                                    <span class="text-[9px] text-brand-cyan font-bold uppercase block">Step 1</span>
+                                    <span class="text-xs text-white">Upload Spec / Submittal</span>
+                                </div>
+                                <i class="fa-solid fa-arrow-right text-brand-border hidden md:block"></i>
+                                <div class="glass-panel rounded-lg px-4 py-3 text-center flex-1">
+                                    <span class="text-[9px] text-brand-indigo font-bold uppercase block">Step 2</span>
+                                    <span class="text-xs text-white">Clause-Tree Indexing</span>
+                                </div>
+                                <i class="fa-solid fa-arrow-right text-brand-border hidden md:block"></i>
+                                <div class="glass-panel rounded-lg px-4 py-3 text-center flex-1">
+                                    <span class="text-[9px] text-brand-emerald font-bold uppercase block">Step 3</span>
+                                    <span class="text-xs text-white">LLM Navigates TOC</span>
+                                </div>
+                                <i class="fa-solid fa-arrow-right text-brand-border hidden md:block"></i>
+                                <div class="glass-panel rounded-lg px-4 py-3 text-center flex-1">
+                                    <span class="text-[9px] text-brand-amber font-bold uppercase block">Step 4</span>
+                                    <span class="text-xs text-white">Fetch & Compare Clause</span>
+                                </div>
+                                <i class="fa-solid fa-arrow-right text-brand-border hidden md:block"></i>
+                                <div class="glass-panel rounded-lg px-4 py-3 text-center flex-1 glass-panel-glow-cyan">
+                                    <span class="text-[9px] text-brand-cyan font-bold uppercase block">Output</span>
+                                    <span class="text-xs text-white">Cited Answer / Verdict</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SLIDE 6: Business Impact -->
+                    <div class="deck-slide hidden p-10 md:p-14" style="min-height: 620px;">
+                        <div class="flex items-center space-x-3 mb-8">
+                            <div class="h-10 w-10 rounded-xl bg-brand-amber/15 flex items-center justify-center text-brand-amber text-lg"><i class="fa-solid fa-chart-line"></i></div>
+                            <h2 class="font-display text-3xl font-bold text-white">Business Impact</h2>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                            <div class="glass-panel rounded-xl p-6 text-center glass-panel-glow-cyan">
+                                <span class="text-5xl font-bold text-brand-cyan block font-display">8s</span>
+                                <p class="text-sm text-gray-300 mt-2">Compliance audit time</p>
+                                <p class="text-xs text-gray-500 mt-1">Down from 3-5 days manual</p>
+                                <div class="mt-3 h-1 w-full bg-brand-bg rounded-full overflow-hidden"><div class="h-full bg-brand-cyan rounded-full" style="width: 99%"></div></div>
+                                <span class="text-[9px] text-brand-cyan font-mono mt-1 block">99.8% time reduction</span>
+                            </div>
+                            <div class="glass-panel rounded-xl p-6 text-center">
+                                <span class="text-5xl font-bold text-brand-emerald block font-display">100%</span>
+                                <p class="text-sm text-gray-300 mt-2">Citation traceability</p>
+                                <p class="text-xs text-gray-500 mt-1">Every claim linked to source clause</p>
+                                <div class="mt-3 h-1 w-full bg-brand-bg rounded-full overflow-hidden"><div class="h-full bg-brand-emerald rounded-full" style="width: 100%"></div></div>
+                                <span class="text-[9px] text-brand-emerald font-mono mt-1 block">Fully explainable AI</span>
+                            </div>
+                            <div class="glass-panel rounded-xl p-6 text-center">
+                                <span class="text-5xl font-bold text-brand-amber block font-display">$0</span>
+                                <p class="text-sm text-gray-300 mt-2">Infrastructure cost</p>
+                                <p class="text-xs text-gray-500 mt-1">No vector DB, no embeddings, no GPU</p>
+                                <div class="mt-3 h-1 w-full bg-brand-bg rounded-full overflow-hidden"><div class="h-full bg-brand-amber rounded-full" style="width: 100%"></div></div>
+                                <span class="text-[9px] text-brand-amber font-mono mt-1 block">Runs on Gemini Free Tier</span>
+                            </div>
+                        </div>
+                        <div class="glass-panel rounded-xl p-6 border-l-4 border-brand-emerald">
+                            <h3 class="text-sm font-bold text-white mb-2"><i class="fa-solid fa-rocket text-brand-emerald mr-2"></i>Real-World Value</h3>
+                            <p class="text-sm text-gray-300 leading-relaxed">Catches critical vendor non-conformances (e.g., battery autonomy 8 min vs required 10 min, short circuit rating 20 kA vs required 25 kA) <strong class="text-white">before equipment is manufactured and shipped</strong> — preventing millions in rework, equipment rejection, and project delays.</p>
+                        </div>
+                    </div>
+
+                    <!-- SLIDE 7: Thank You -->
+                    <div class="deck-slide hidden p-10 md:p-16 flex flex-col items-center justify-center text-center" style="min-height: 620px;">
+                        <div class="h-20 w-20 mx-auto rounded-2xl bg-gradient-to-tr from-brand-indigo to-brand-cyan flex items-center justify-center shadow-2xl shadow-brand-cyan/30 mb-8">
+                            <i class="fa-solid fa-shield-halved text-white text-4xl"></i>
+                        </div>
+                        <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-4">Thank You</h2>
+                        <p class="text-xl text-gray-300 mb-8 font-light">Built with precision for the ET AI Hackathon 2026</p>
+                        <div class="h-1 w-24 mx-auto rounded-full bg-gradient-to-r from-brand-indigo to-brand-cyan mb-8"></div>
+                        <div class="glass-panel rounded-xl p-6 max-w-md w-full">
+                            <div class="grid grid-cols-2 gap-4 text-sm">
+                                <div class="text-left">
+                                    <span class="text-[9px] text-gray-500 uppercase block">GitHub</span>
+                                    <a href="https://github.com/Jaswanth258/AI-Data-Centre-EPC-Platform" target="_blank" class="text-brand-cyan hover:underline text-xs">Jaswanth258/AI-Data-Centre-EPC-Platform</a>
+                                </div>
+                                <div class="text-left">
+                                    <span class="text-[9px] text-gray-500 uppercase block">Tech Stack</span>
+                                    <span class="text-white text-xs">Gemini + FastAPI + Clause-Tree RAG</span>
+                                </div>
+                                <div class="text-left">
+                                    <span class="text-[9px] text-gray-500 uppercase block">Key Feature</span>
+                                    <span class="text-white text-xs">Structural Retrieval (No Vector DB)</span>
+                                </div>
+                                <div class="text-left">
+                                    <span class="text-[9px] text-gray-500 uppercase block">Impact</span>
+                                    <span class="text-white text-xs">3-5 days &rarr; 8 seconds</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-8 flex flex-wrap justify-center gap-2">
+                            <span class="text-[10px] bg-brand-cyan/10 border border-brand-cyan/30 text-brand-cyan px-2.5 py-1 rounded-full">RFI Intelligence</span>
+                            <span class="text-[10px] bg-brand-indigo/10 border border-brand-indigo/30 text-brand-indigo px-2.5 py-1 rounded-full">Compliance Audit</span>
+                            <span class="text-[10px] bg-brand-emerald/10 border border-brand-emerald/30 text-brand-emerald px-2.5 py-1 rounded-full">PDF Upload</span>
+                            <span class="text-[10px] bg-brand-amber/10 border border-brand-amber/30 text-brand-amber px-2.5 py-1 rounded-full">CSV Export</span>
+                            <span class="text-[10px] bg-brand-rose/10 border border-brand-rose/30 text-brand-rose px-2.5 py-1 rounded-full">Per-Doc Chat Memory</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
     </main>
 
     <!-- Footer -->
@@ -410,25 +695,50 @@
 
         // Active tab configuration
         function switchTab(tabId) {
-            const rfiTab = document.getElementById('tab-rfi');
-            const complianceTab = document.getElementById('tab-compliance');
-            const rfiPanel = document.getElementById('panel-rfi');
-            const compliancePanel = document.getElementById('panel-compliance');
+            const tabs = ['rfi', 'compliance', 'deck'];
+            const activeClass = "border-b-2 border-brand-cyan text-brand-cyan px-1 py-4 text-sm font-medium font-display flex items-center space-x-2";
+            const inactiveClass = "border-b-2 border-transparent text-gray-400 hover:text-white hover:border-gray-500 px-1 py-4 text-sm font-medium font-display flex items-center space-x-2";
 
-            if (tabId === 'rfi') {
-                rfiTab.className = "border-b-2 border-brand-cyan text-brand-cyan px-1 py-4 text-sm font-medium font-display flex items-center space-x-2";
-                complianceTab.className = "border-b-2 border-transparent text-gray-400 hover:text-white hover:border-gray-500 px-1 py-4 text-sm font-medium font-display flex items-center space-x-2";
-                rfiPanel.classList.remove('hidden');
-                rfiPanel.classList.add('flex');
-                compliancePanel.classList.add('hidden');
-            } else {
-                complianceTab.className = "border-b-2 border-brand-cyan text-brand-cyan px-1 py-4 text-sm font-medium font-display flex items-center space-x-2";
-                rfiTab.className = "border-b-2 border-transparent text-gray-400 hover:text-white hover:border-gray-500 px-1 py-4 text-sm font-medium font-display flex items-center space-x-2";
-                compliancePanel.classList.remove('hidden');
-                rfiPanel.classList.add('hidden');
-                rfiPanel.classList.remove('flex');
-            }
+            tabs.forEach(t => {
+                const tabBtn = document.getElementById(`tab-${t}`);
+                const panel = document.getElementById(`panel-${t}`);
+                if (!tabBtn || !panel) return;
+
+                if (t === tabId) {
+                    tabBtn.className = activeClass;
+                    panel.classList.remove('hidden');
+                    if (t === 'rfi') panel.classList.add('flex');
+                    if (t === 'deck') panel.classList.add('flex');
+                } else {
+                    tabBtn.className = inactiveClass;
+                    panel.classList.add('hidden');
+                    panel.classList.remove('flex');
+                }
+            });
         }
+
+        // Presentation Deck slide navigation
+        let currentSlide = 0;
+        function getSlides() { return document.querySelectorAll('.deck-slide'); }
+        function showSlide(index) {
+            const slides = getSlides();
+            if (slides.length === 0) return;
+            slides.forEach((s, i) => {
+                if (i === index) { s.classList.remove('hidden'); s.style.display = 'flex'; s.style.flexDirection = 'column'; }
+                else { s.classList.add('hidden'); s.style.display = 'none'; }
+            });
+            currentSlide = index;
+            const counter = document.getElementById('slide-counter');
+            if (counter) counter.textContent = `${index + 1} / ${slides.length}`;
+        }
+        function nextSlide() { const slides = getSlides(); if (currentSlide < slides.length - 1) showSlide(currentSlide + 1); }
+        function prevSlide() { if (currentSlide > 0) showSlide(currentSlide - 1); }
+        document.addEventListener('keydown', (e) => {
+            const deckPanel = document.getElementById('panel-deck');
+            if (!deckPanel || deckPanel.classList.contains('hidden')) return;
+            if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); nextSlide(); }
+            if (e.key === 'ArrowLeft') { e.preventDefault(); prevSlide(); }
+        });
 
         // Initialize drop-down submittals
         async function loadSubmittals() {
